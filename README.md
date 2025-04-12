@@ -70,11 +70,8 @@ SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co
 SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuenVmaXFkcHNneWF0cXBqdXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5MTY0NTQsImV4cCI6MjA1NzQ5MjQ1NH0.zUJBI37FlfJWnRu_rFzjd_3tljI_1ZhAyHajIv7yQX4
 
 `/backend/RabbitMQListener`
-# AMQP URL
 AMQP_URL = <secret_key>
-# Queue name 
 RABBITMQ_QUEUE = notifications
-# OutSystems Notification API
 OUTSYSTEMS_NOTIFY_UR = https://personal-nrm7dwxa.outsystemscloud.com/NotificationService/rest/NotificationAPI/notifications
 
 `/backend/Social`
