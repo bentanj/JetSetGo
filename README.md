@@ -30,7 +30,7 @@ docker-compose up -d --build
 VUE_APP_GEOAPIFY_API_KEY=<secret_key>
 
 `/backend/ai-microservice`
-GEMINI_API_KEY = <secret_key>
+GEMINI_API_KEY = <secret_key>  
 GOOGLE_CLOUD_PROJECT_ID = <secret_key>
 PORT = 3000
 PLACES_MICROSERVICE_URL = http://localhost:4500
