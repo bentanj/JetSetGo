@@ -26,66 +26,66 @@ docker-compose up -d --build
 ```
 
 ### Environment Variables
-`/frontend`:
+`/frontend`  
 VUE_APP_GEOAPIFY_API_KEY=<secret_key>
 
-`/backend/ai-microservice`
+`/backend/ai-microservice`  
 GEMINI_API_KEY = <secret_key>  
-GOOGLE_CLOUD_PROJECT_ID = <secret_key>
-PORT = 3000
-PLACES_MICROSERVICE_URL = http://localhost:4500
-USER_SERVICE_URL = http://localhost:8000
-JWT_SECRET = <secret_key>
-JWT_ALGORITHM = HS256
+GOOGLE_CLOUD_PROJECT_ID = <secret_key>  
+PORT = 3000  
+PLACES_MICROSERVICE_URL = http://localhost:4500  
+USER_SERVICE_URL = http://localhost:8000  
+JWT_SECRET = <secret_key>  
+JWT_ALGORITHM = HS256  
 
-`/backend/Authentication`
-JWT_SECRET = <secret_key>
-JWT_ALGORITHM = HS256
-SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co
+`/backend/Authentication`  
+JWT_SECRET = <secret_key>  
+JWT_ALGORITHM = HS256  
+SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co  
 SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuenVmaXFkcHNneWF0cXBqdXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5MTY0NTQsImV4cCI6MjA1NzQ5MjQ1NH0.zUJBI37FlfJWnRu_rFzjd_3tljI_1ZhAyHajIv7yQX4
 
-`/backend/create`
-JWT_SECRET = <secret_key>
+`/backend/create`  
+JWT_SECRET = <secret_key>  
 JWT_ALGORITHM = HS256
 
-`/backend/itinerary-service`
-JWT_SECRET = <secret_key>
-JWT_ALGORITHM = HS256
-SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co
-SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuenVmaXFkcHNneWF0cXBqdXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5MTY0NTQsImV4cCI6MjA1NzQ5MjQ1NH0.zUJBI37FlfJWnRu_rFzjd_3tljI_1ZhAyHajIv7yQX4
-ITINERARIES_TABLE = itineraries
+`/backend/itinerary-service`  
+JWT_SECRET = <secret_key>  
+JWT_ALGORITHM = HS256  
+SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co  
+SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuenVmaXFkcHNneWF0cXBqdXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5MTY0NTQsImV4cCI6MjA1NzQ5MjQ1NH0.zUJBI37FlfJWnRu_rFzjd_3tljI_1ZhAyHajIv7yQX4  
+ITINERARIES_TABLE = itineraries  
 PORT = 5400
 
-`/backend/location`
-PORT = 4500
+`/backend/location`  
+PORT = 4500  
 GOOGLE_PLACES_API_KEY = <secret_key>
 
-`/backend/post`
-JWT_SECRET = <secret_key>
-JWT_ALGORITHM = HS256
-CLOUDINARY_CLOUD_NAME = <secret_key>
-CLOUDINARY_API_KEY = <secret_key>
-CLOUDINARY_API_SECRET = <secret_key>
-SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co
+`/backend/post`  
+JWT_SECRET = <secret_key>  
+JWT_ALGORITHM = HS256  
+CLOUDINARY_CLOUD_NAME = <secret_key>  
+CLOUDINARY_API_KEY = <secret_key>  
+CLOUDINARY_API_SECRET = <secret_key>  
+SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co  
 SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuenVmaXFkcHNneWF0cXBqdXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5MTY0NTQsImV4cCI6MjA1NzQ5MjQ1NH0.zUJBI37FlfJWnRu_rFzjd_3tljI_1ZhAyHajIv7yQX4
 
-`/backend/RabbitMQListener`
-AMQP_URL = <secret_key>
-RABBITMQ_QUEUE = notifications
+`/backend/RabbitMQListener`  
+AMQP_URL = <secret_key>  
+RABBITMQ_QUEUE = notifications  
 OUTSYSTEMS_NOTIFY_UR = https://personal-nrm7dwxa.outsystemscloud.com/NotificationService/rest/NotificationAPI/notifications
 
-`/backend/Social`
-AMQP_URL = <secret_key>
-JWT_SECRET = <secret_key>
-JWT_ALGORITHM = HS256
-SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co
+`/backend/Social`  
+AMQP_URL = <secret_key>  
+JWT_SECRET = <secret_key>  
+JWT_ALGORITHM = HS256  
+SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co  
 SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuenVmaXFkcHNneWF0cXBqdXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5MTY0NTQsImV4cCI6MjA1NzQ5MjQ1NH0.zUJBI37FlfJWnRu_rFzjd_3tljI_1ZhAyHajIv7yQX4
 
 
-`backend/User`
-JWT_SECRET = <secret_key>
-JWT_ALGORITHM = HS256
-SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co
+`backend/User`  
+JWT_SECRET = <secret_key>  
+JWT_ALGORITHM = HS256  
+SUPABASE_URL = https://rnzufiqdpsgyatqpjuvm.supabase.co  
 SUPABASE_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuenVmaXFkcHNneWF0cXBqdXZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5MTY0NTQsImV4cCI6MjA1NzQ5MjQ1NH0.zUJBI37FlfJWnRu_rFzjd_3tljI_1ZhAyHajIv7yQX4
 
 #### Stop Services
