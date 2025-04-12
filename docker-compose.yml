@@ -1,0 +1,152 @@
+services:
+  kong:
+    image: kong:latest
+    environment:
+      KONG_DATABASE: "off"
+      KONG_DECLARATIVE_CONFIG: /kong/kong.yml
+      KONG_PROXY_ACCESS_LOG: /dev/stdout
+      KONG_ADMIN_ACCESS_LOG: /dev/stdout
+      KONG_PROXY_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_ADMIN_LISTEN: 0.0.0.0:8001
+      KONG_PROXY_LISTEN: 0.0.0.0:8000, 0.0.0.0:8443 ssl
+    volumes:
+      - ./kong.yml:/kong/kong.yml
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8001:8001"
+      - "8444:8444"
+    networks:
+      - kong-net
+
+  auth-service:
+    container_name: auth-service
+    build: 
+      context: ./backend/Authentication
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/Authentication/.env
+    ports:
+      - "5001:5001"
+    networks:
+      - kong-net
+
+  post-service:
+    build: 
+      context: ./backend/post
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - ./backend/post/.env
+    ports:
+      - "5000:5000"
+    networks:
+      - kong-net
+
+  user-service:
+    build: 
+      context: ./backend/User
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/User/.env
+    environment:
+      - JWT_SECRET=esd_jwt_secret_key
+      - JWT_ALGORITHM=HS256
+    ports:
+      - "5002:5002"
+    networks:
+      - kong-net
+  rabbitmq-listener:
+    build:
+      context: ./backend/RabbitMQListener
+      dockerfile: Dockerfile
+    restart: always
+    env_file: ./backend/RabbitMQListener/.env
+    networks:
+      - kong-net
+
+
+  location-service:
+    build:
+      context: ./backend/location
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/location/.env
+    ports:
+      - "4500:4500"
+    networks:
+      - kong-net
+
+  ai-microservice:
+    build:
+      context: ./backend/ai-microservice
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/ai-microservice/.env
+    environment:
+      - PLACES_MICROSERVICE_URL=http://location-service:4500
+      - USER_SERVICE_URL=http://user-service:5002
+      - JWT_SECRET=esd_jwt_secret_key
+      - JWT_ALGORITHM=HS256
+    ports:
+      - "3000:3000"
+    networks:
+      - kong-net
+    depends_on:
+      - location-service
+      - user-service
+
+  itinerary-service:
+    build:
+      context: ./backend/itinerary-microservice
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/itinerary-microservice/.env
+    environment:
+      - JWT_SECRET=esd_jwt_secret_key
+      - JWT_ALGORITHM=HS256
+    ports:
+      - "5400:5400"
+    networks:
+      - kong-net
+    restart: always
+
+  social-service:
+    build:
+      context: ./backend/Social
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/Social/.env
+    restart: always
+    ports:
+      - "5003:5003"
+    networks:
+      - kong-net
+
+  create-post-service:
+    build: 
+      context: ./backend/create
+      dockerfile: Dockerfile
+    environment:
+      - JWT_SECRET=esd_jwt_secret_key
+      - JWT_ALGORITHM=HS256
+      - PREFERENCES_SERVICE_URL=http://user-service:5002 
+      - POST_SERVICE_URL=http://post-service:5000
+    depends_on:
+      - user-service
+    ports:
+      - "5005:5005"
+    networks:
+      - kong-net
+
+
+networks:
+  kong-net:
+    name: g3t1_kong-net
+    driver: bridge
+
+volumes:
+  kong_data:
+  post_data:
+  auth_data:

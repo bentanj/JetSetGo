@@ -1,0 +1,237 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+  - name: auth-service
+    url: http://auth-service:5001
+    tags:
+      - auth
+    routes:
+      - name: auth-login
+        paths:
+          - /api/auth/login
+        strip_path: false
+        methods:
+          - POST
+          - OPTIONS
+      - name: auth-register
+        paths:
+          - /api/auth/register
+        strip_path: false
+        methods:
+          - POST
+          - OPTIONS
+      - name: auth-verify
+        paths:
+          - /api/auth/verify-token
+        strip_path: false
+        methods:
+          - GET
+          - OPTIONS
+      - name: auth-delete-user  # New route for deleting user from auth service
+        paths:
+          - /api/auth/user/\d+$
+        strip_path: false
+        methods:
+          - DELETE
+          - OPTIONS
+      - name: auth-update-first-login
+        paths:
+          - /api/auth/update-first-login$
+        strip_path: false
+        methods:
+          - PUT
+          - OPTIONS
+
+  - name: post-service
+    url: http://post-service:5000
+    routes:
+      - name: post-routes
+        paths:
+          - /api/posts
+        strip_path: false
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+      - name: user-posts
+        paths:
+          - /api/posts/user/\d+$
+        strip_path: false
+        methods:
+          - GET
+          - DELETE
+          - OPTIONS
+
+  # User Service
+  - name: user-service
+    url: http://user-service:5002
+    routes:
+      - name: user-routes
+        paths:
+          - /api/user
+        strip_path: false
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+      - name: user-delete  # Route for deleting users
+        paths:
+          - /api/user/\d+$
+        strip_path: false
+        methods:
+          - DELETE
+          - OPTIONS
+      - name: user-taste-preferences  # Route for taste preferences
+        paths:
+          - /api/user/\d+/taste-preferences
+        strip_path: false
+        methods:
+          - GET
+          - OPTIONS
+      - name: internal-user-routes
+        paths:
+          - /api/internal/user
+          - /api/internal/user/create  # Added specific path for user creation
+        strip_path: false
+        methods:
+          - POST
+          - OPTIONS
+
+  # Location Service
+  - name: location-service
+    url: http://location-service:4500
+    routes:
+      - name: location-routes
+        paths:
+          - /api/places
+        strip_path: false
+
+  # AI Microservice
+  - name: ai-microservice
+    url: http://ai-microservice:3000
+    routes:
+      - name: ai-itinerary
+        paths:
+          - /api/itinerary
+        strip_path: false
+      - name: ai-save-itinerary
+        paths:
+          - /api/saveItinerary
+        strip_path: false
+
+  # Itinerary Microservice
+  - name: itinerary-service
+    url: http://itinerary-service:5400
+    routes:
+      - name: itinerary-routes
+        paths:
+          - /api/itineraries
+          - /api/test-db
+          - /direct-test
+        strip_path: false
+      - name: itinerary-user-delete
+        paths:
+          - /api/itineraries/\d+/all$
+        strip_path: false
+        methods:
+          - DELETE
+          - OPTIONS
+        methods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+      - name: itinerary-verify-token
+        paths:
+          - /api/verify-token
+        strip_path: false
+        methods:
+          - GET
+          - OPTIONS
+  #Notification Service
+  - name: notification-service
+    url: https://personal-nrm7dwxa.outsystemscloud.com/NotificationService/rest/NotificationAPI
+    tls_verify: false
+    routes:
+      - name: notification-routes
+        paths:
+          - /api/notification
+        strip_path: true
+        methods:
+          - GET
+          - POST
+          - PUT
+          - OPTIONS
+
+
+
+  - name: social-service
+    url: http://social-service:5003
+    routes:
+      - name: social-routes
+        paths:
+          - /api/social
+        strip_path: false
+        methods:
+          - GET
+          - POST
+          - DELETE
+          - OPTIONS
+      - name: social-user-delete
+        paths:
+          - /api/social/user/\d+$
+        strip_path: false
+        methods:
+          - DELETE
+          - OPTIONS
+
+  - name: create-post-service
+    url: http://create-post-service:5005  # This is the internal Flask service URL
+    routes:
+      - name: create-post-route
+        paths:
+          - /api/cposts  # External path that users will hit for creating posts
+          - /api/user/taste-preferences
+        strip_path: false
+        methods:
+          - POST
+          - GET
+          - OPTIONS
+
+
+plugins:
+  - name: cors
+    config:
+      origins:
+        - "http://localhost:8080"
+        - "http://localhost:8000"
+        - "http://localhost"
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      headers:
+        - Accept
+        - Accept-Version
+        - Content-Length
+        - Content-MD5
+        - Content-Type
+        - Date
+        - apikey
+        - Authorization
+      exposed_headers:
+        - Content-Length
+        - Content-Range
+        - Authorization
+        - apikey
+      credentials: true
+      max_age: 3600
+      preflight_continue: false
