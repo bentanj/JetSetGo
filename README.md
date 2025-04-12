@@ -107,4 +107,3 @@ docker-compose logs post-service
 
 # Follow logs in real-time
 docker-compose logs -f
-``
